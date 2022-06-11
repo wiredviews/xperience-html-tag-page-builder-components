@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<Company>WiredViews, Inc</Company>
+		<Authors>$(Company)</Authors>
+		<Copyright>Copyright © $(Company) $([System.DateTime]::Now.Year)</Copyright>
+		<Trademark>$(Company)™</Trademark>
+		<Product>XperienceCommunity.HTMLTagPageBuilderComponents</Product>
+		<VersionPrefix>1.0.0</VersionPrefix>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Title>$(Product)</Title>
+		<PackageProjectUrl>https://github.com/wiredviews/xperience-html-tag-page-builder-components</PackageProjectUrl>
+		<PackageIcon>wv-logo.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>xperience;kentico;aspnetcore</PackageTags>
+		<PackageReleaseNotes>https://github.com/wiredviews/xperience-html-tag-page-builder-components/releases</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)\images\wv-logo.png" Pack="true" Visible="false" PackagePath="" />
+		<None Include="$(MSBuildThisFileDirectory)\README.md" Pack="true" PackagePath=""/>
+	</ItemGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>1591</NoWarn>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" $(Configuration) == 'Release' ">
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+</Project>

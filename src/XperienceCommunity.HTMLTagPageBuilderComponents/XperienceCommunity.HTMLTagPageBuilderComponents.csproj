@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+ <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Description>
+      A collection of ASP.NET Core components for optimizing the rendering and loading of script, style, and image assets on Kentico Xperience 13.0 sites
+    </Description>
+
+    <Product>XperienceCommunity.HTMLTagPageBuilderComponents</Product>
+    <Title>$(Product)</Title>
+    <PackageTags>$(PackageTags)</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Kentico.Xperience.AspNetCore.WebApp" Version="[13.0.0, 13.1.0)" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+</Project>
