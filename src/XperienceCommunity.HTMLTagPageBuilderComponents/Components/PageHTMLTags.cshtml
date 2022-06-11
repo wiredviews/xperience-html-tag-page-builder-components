@@ -1,0 +1,6 @@
+﻿@model XperienceCommunity.HTMLTagPageBuilderComponents.Components.PageHTMLTagsViewModel
+
+@foreach (var tagData in Model.Tags)
+{
+    <vc:xpc-html-tag tag-data="tagData" />
+}

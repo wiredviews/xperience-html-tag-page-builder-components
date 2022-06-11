@@ -1,26 +1,37 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
- <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Description>
-      A collection of ASP.NET Core components for optimizing the rendering and loading of script, style, and image assets on Kentico Xperience 13.0 sites
-    </Description>
+	<PropertyGroup>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 
-    <Product>XperienceCommunity.HTMLTagPageBuilderComponents</Product>
-    <Title>$(Product)</Title>
-    <PackageTags>$(PackageTags)</PackageTags>
-  </PropertyGroup>
+		<Description>
+			A collection of ASP.NET Core components for optimizing the rendering and loading of script, style, and image assets on Kentico Xperience 13.0 sites
+		</Description>
 
-  <ItemGroup>
-    <PackageReference Include="Kentico.Xperience.AspNetCore.WebApp" Version="[13.0.0, 13.1.0)" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+		<Product>XperienceCommunity.HTMLTagPageBuilderComponents</Product>
+		<Title>$(Product)</Title>
+		<PackageTags>$(PackageTags)</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Kentico.Xperience.AspNetCore.WebApp" Version="[13.0.0, 13.1.0)" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-  </ItemGroup>
+		<PackageReference Include="XperienceCommunity.PageBuilderTagHelpers" Version="[1.1.0, 2.0.0)" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Microsoft.AspNetCore.Mvc" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="CMS.AssemblyDiscoverableAttribute">
+		</AssemblyAttribute>
+	</ItemGroup>
 
 </Project>

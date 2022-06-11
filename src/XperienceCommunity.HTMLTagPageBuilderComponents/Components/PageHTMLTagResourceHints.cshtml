@@ -1,0 +1,6 @@
+﻿@model XperienceCommunity.HTMLTagPageBuilderComponents.Components.PageHTMLTagResourceHintsViewModel
+
+@foreach (var tagData in Model.Tags)
+{
+    <vc:xpc-html-resource-hint-tag tag-data="tagData" />
+}

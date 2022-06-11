@@ -15,9 +15,22 @@
     "**/obj": true
   },
 
+  "[razor]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+
+  "editor.formatOnSave": true,
+
   "omnisharp.defaultLaunchSolution": "XperienceCommunity.HTMLTagPageBuilderComponents.sln",
   "omnisharp.useEditorFormattingSettings": true,
   "omnisharp.enableImportCompletion": true,
+  "omnisharp.useModernNet": true,
+  "omnisharp.enableRoslynAnalyzers": true,
+  "omnisharp.organizeImportsOnFormat": true,
 
   "dotnet-test-explorer.testProjectPath": "**/*Tests.@(csproj|vbproj|fsproj)"
 }

@@ -1,0 +1,66 @@
+﻿@model XperienceCommunity.HTMLTagPageBuilderComponents.HTMLTagData
+
+@{
+    var task = (Model.Type, Model.Block, Model.FilePath) switch
+    {
+        (HTMLTagType.CSSBlock, HtmlString Block, _) => RenderStyleBlock(Block),
+        (HTMLTagType.CSSFile, _, string FilePath) => RenderStylesheetLink(FilePath),
+        (HTMLTagType.JavaScriptESModuleBlock, HtmlString Block, _) => RenderESModuleBlock(Block),
+        (HTMLTagType.JavaScriptESModuleFile, _, string FilePath) => RenderESModuleScriptTag(FilePath),
+        (HTMLTagType.JavaScriptTraditionalBlock, HtmlString Block, _) => RenderJavaScriptBlock(Block),
+        (HTMLTagType.JavaScriptTraditionalFile, _, string FilePath) => RenderJavaScriptTag(FilePath),
+        (HTMLTagType.HTMLBlock, HtmlString Block, _) => RenderHTMLBlock(Block),
+        (_, _, _) => Task.CompletedTask
+    };
+
+    await task;
+
+    Task RenderStyleBlock(HtmlString block)
+    {
+        <style>
+            @block
+        </style>
+
+        return Task.CompletedTask;
+    }
+
+    async Task RenderStylesheetLink(string filePath)
+    {
+        <link rel="stylesheet" href="@filePath" asp-append-version="true" xp-url="true" />
+    }
+
+    Task RenderESModuleBlock(HtmlString block)
+    {
+        <script type="module">
+            @block
+        </script>
+
+        return Task.CompletedTask;
+    }
+
+    async Task RenderESModuleScriptTag(string filePath)
+    {
+        <script type="module" src="@filePath" asp-append-version="true" xp-url="true"></script>
+    }
+
+    Task RenderJavaScriptBlock(HtmlString block)
+    {
+        <script>
+            @block
+        </script>
+
+        return Task.CompletedTask;
+    }
+
+    async Task RenderJavaScriptTag(string filePath)
+    {
+        <script src="@filePath" asp-append-version="true" xp-url="true"></script>
+    }
+
+    Task RenderHTMLBlock(HtmlString block)
+    {
+        <text>@block</text>
+
+        return Task.CompletedTask;
+    }
+}

@@ -1,0 +1,63 @@
+﻿@model XperienceCommunity.HTMLTagPageBuilderComponents.HTMLTagData
+
+@{
+    var _ = (Model.Type, Model.Block, Model.FilePath) switch
+    {
+        (HTMLTagType.CSSBlock, HtmlString Block, _) => RenderStyleBlock(Block),
+        (HTMLTagType.CSSFile, _, string FilePath) => RenderStylesheetLink(FilePath),
+        (HTMLTagType.JavaScriptESModuleBlock, HtmlString Block, _) => RenderESModuleBlock(Block),
+        (HTMLTagType.JavaScriptESModuleFile, _, string FilePath) => RenderESModuleScriptTag(FilePath),
+        (HTMLTagType.JavaScriptTraditionalBlock, HtmlString Block, _) => RenderJavaScriptBlock(Block),
+        (HTMLTagType.JavaScriptTraditionalFile, _, string FilePath) => RenderJavaScriptTag(FilePath),
+        (HTMLTagType.HTMLBlock, HtmlString Block, _) => RenderHTMLBlock(Block),
+        (_, _, _) => ""
+    };
+
+    string RenderStyleBlock(HtmlString block)
+    {
+        string tag = $@"<style>{Environment.NewLine}{block.Value}{Environment.NewLine}</style>";
+        <text>@tag</text>
+        return "";
+    }
+
+    string RenderStylesheetLink(string filePath)
+    {
+        string tag = $@"<link rel=""stylesheet"" href=""{filePath}"">";
+        <text>@tag</text>
+        return "";
+    }
+
+    string RenderESModuleBlock(HtmlString block)
+    {
+        string tag = $@"<script>{Environment.NewLine}{block.Value}{Environment.NewLine}</script>";
+        <text>@tag</text>
+        return "";
+    }
+
+    string RenderESModuleScriptTag(string filePath)
+    {
+        string tag = $@"<script src=""{filePath}""></script>";
+        <text>@tag</text>
+        return "";
+    }
+
+    string RenderJavaScriptBlock(HtmlString block)
+    {
+        string tag = $@"<script>{Environment.NewLine}{block.Value}{Environment.NewLine}</script>";
+        <text>@tag</text>
+        return "";
+    }
+
+    string RenderJavaScriptTag(string filePath)
+    {
+        string tag = $@"<script src=""{filePath}""></script>";
+        <text>@tag</text>
+        return "";
+    }
+
+    string RenderHTMLBlock(HtmlString block)
+    {
+        <text>@block.Value</text>
+        return "";
+    }
+}

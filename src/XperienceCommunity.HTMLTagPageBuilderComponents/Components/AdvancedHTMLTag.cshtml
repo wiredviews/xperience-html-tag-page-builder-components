@@ -1,0 +1,27 @@
+﻿@model XperienceCommunity.HTMLTagPageBuilderComponents.Components.AdvancedHTMLTagWidgetViewModel
+
+@if (Model.TagData.Type == HTMLTagType.Unknown)
+{
+    return;
+}
+
+<page-builder-mode include="Edit">
+    <div class="page-builder-preview-content">
+        <h4>Tags added @Model.Description in Preview/Live</h4>
+
+        <p>
+        <pre>
+            <vc:xpc-html-tag-preview tag-data="Model.TagData" />
+        </pre>
+        </p>
+    </div>
+</page-builder-mode>
+
+@if (Model.TagData.Location != PageRenderLocation.Current)
+{
+    return;
+}
+
+<page-builder-mode exclude="Edit">
+    <vc:xpc-html-tag tag-data="Model.TagData" />
+</page-builder-mode>

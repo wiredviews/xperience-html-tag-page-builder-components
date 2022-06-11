@@ -10,7 +10,7 @@ A collection of ASP.NET Core components for optimizing the rendering and loading
 
 ## Dependencies
 
-This package is compatible with ASP.NET Core 3.1+ applications or libraries integrated with Kentico Xperience 13.0.
+This package is compatible with ASP.NET Core 6.0+ applications or libraries integrated with Kentico Xperience 13.0.
 
 ## How to Integrate?
 
@@ -19,6 +19,47 @@ This package is compatible with ASP.NET Core 3.1+ applications or libraries inte
    ```bash
    dotnet add package XperienceCommunity.HTMLTagPageBuilderComponents
    ```
+
+2. Create an implementation of `IHTMLTagsRetriever` which should use `IPageRetriever` to get either global HTML tag page content or a specific HTML tag page's content to display on the site:
+
+   ```csharp
+   public class : MyHTMLTagsRetreiver : IHTMLTagsRetriever
+   {
+	   private readonly IPageRetriever pageRetriever;
+
+	   public MyHTMLTagsRetriever(IPageRetriever pageRetriever) => this.pageRetriever = pageRetriever;
+
+       public async Task<GlobalTags> RetrieveGlobalTags(CancellationToken cancellationToken = default)
+	   {
+		   var pages = await pageRetriever.RetrieveAsync<GlobalTagsContent>();
+
+		   if (!pages.Any())
+		   {
+			   throw new Exception("...");
+		   }
+
+		   return pages.Select(p => new GlobalTags(...)).Single();
+	   }
+
+       public async Task<AdvancedHTMLTag> RetrieveAdvancedTag(Guid nodeGUID, CancellationToken cancellationToken = default)
+	   {
+		   var pages = await pageRetriever.RetrieveAsync<HTMLTagContent>(q => q.WhereEquals(nameof(TreeNode.NodeGUID), nodeGUID));
+
+		   if (!pages.Any())
+		   {
+			   throw new Exception("...");
+		   }
+
+		   return pages.Select(p => new AdvancedHTMLTag(...)).Single();
+	   }
+   }
+   ```
+
+3. Call the `IServiceCollection` extension to register all the library's services:
+
+	```csharp
+	services.AddHTMLTagPageBuilderComponents<MyHTMLTagsRetreiver>();
+	```
 
 ## Usage Examples
 

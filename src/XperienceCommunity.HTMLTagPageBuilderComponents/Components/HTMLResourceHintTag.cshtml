@@ -1,0 +1,34 @@
+﻿@model XperienceCommunity.HTMLTagPageBuilderComponents.HTMLTagData
+
+@{
+    var task = (Model.Type, Model.FilePath) switch
+    {
+        (HTMLTagType.CSSFile, string FilePath) => RenderStylesheetLink(FilePath),
+        (HTMLTagType.JavaScriptESModuleFile, string FilePath) => RenderESModuleScriptTag(FilePath),
+        (HTMLTagType.JavaScriptTraditionalFile, string FilePath) => RenderJavaScriptTag(FilePath),
+        (HTMLTagType.Image, string FilePath) => RenderImageLink(FilePath),
+        (_, _) => Task.CompletedTask
+    };
+
+    await task;
+
+    async Task RenderStylesheetLink(string filePath)
+    {
+        <link rel="preload" as="style" href="@filePath" asp-append-version="true">
+    }
+
+    async Task RenderImageLink(string filePath)
+    {
+        <link rel="preload" as="image" href="@filePath">
+    }
+
+    async Task RenderESModuleScriptTag(string filePath)
+    {
+        <link rel="modulepreload" href="@filePath" asp-append-version="true">
+    }
+
+    async Task RenderJavaScriptTag(string filePath)
+    {
+        <link rel="preload" as="script" href="@filePath" asp-append-version="true">
+    }
+}
