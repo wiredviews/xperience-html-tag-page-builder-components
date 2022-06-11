@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Html;
-
-namespace XperienceCommunity.HTMLTagPageBuilderComponents;
+﻿namespace XperienceCommunity.HTMLTagPageBuilderComponents;
 
 /// <summary>
 /// A location within the Page where HTML or content can be rendered
@@ -35,14 +33,13 @@ public enum PageRenderLocation
     /// <summary>
     /// Fallback for removed / unparsable values
     /// </summary>
-    Unknown
+    None
 }
 
 public interface IHTMLTagDataStore
 {
     IReadOnlyList<HTMLTagData> GetTagDataForResourceHints();
     IReadOnlyList<HTMLTagData> GetTagData(PageRenderLocation location);
-    void StoreTagData(PageRenderLocation location, string tagBlock);
     void StoreTagData(HTMLTagData tag);
 }
 
@@ -52,6 +49,7 @@ public class HTMLTagDataStore : IHTMLTagDataStore
     private readonly HTMLTagType[] resourceHintTagTypes =
     {
             HTMLTagType.CSSFile,
+            HTMLTagType.ImageFile,
             HTMLTagType.JavaScriptESModuleFile,
             HTMLTagType.JavaScriptTraditionalFile
         };
@@ -61,17 +59,6 @@ public class HTMLTagDataStore : IHTMLTagDataStore
 
     public IReadOnlyList<HTMLTagData> GetTagData(PageRenderLocation location) =>
         store.Where(t => t.Location == location).ToList().AsReadOnly();
-
-    public void StoreTagData(PageRenderLocation location, string tagBlock)
-    {
-        var tag = new HTMLTagData(
-            location,
-            HTMLTagType.HTMLBlock,
-            null,
-            string.IsNullOrWhiteSpace(tagBlock) ? null : new HtmlString(tagBlock));
-
-        store.Add(tag);
-    }
 
     public void StoreTagData(HTMLTagData tag) => store.Add(tag);
 }

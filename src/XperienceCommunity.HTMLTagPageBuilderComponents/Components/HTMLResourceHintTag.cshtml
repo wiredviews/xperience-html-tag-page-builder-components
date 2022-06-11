@@ -6,7 +6,7 @@
         (HTMLTagType.CSSFile, string FilePath) => RenderStylesheetLink(FilePath),
         (HTMLTagType.JavaScriptESModuleFile, string FilePath) => RenderESModuleScriptTag(FilePath),
         (HTMLTagType.JavaScriptTraditionalFile, string FilePath) => RenderJavaScriptTag(FilePath),
-        (HTMLTagType.Image, string FilePath) => RenderImageLink(FilePath),
+        (HTMLTagType.ImageFile, string FilePath) => RenderImageLink(FilePath),
         (_, _) => Task.CompletedTask
     };
 

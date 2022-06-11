@@ -11,12 +11,15 @@ namespace XperienceCommunity.HTMLTagPageBuilderComponents
         JavaScriptTraditionalFile,
         JavaScriptESModuleFile,
         HTMLBlock,
-        Image,
-        Unknown
+        ImageFile,
+        None
     }
 
-
-    public record HTMLTagData(PageRenderLocation Location, HTMLTagType Type, string? FilePath, HtmlString? Block);
+    public record HTMLTagData(PageRenderLocation Location, HTMLTagType Type, string? FilePath = null, HtmlString? Block = null)
+    {
+        public HTMLTagData(PageRenderLocation location, HTMLTagType type, string filePath) : this(location, type, filePath, null) { }
+        public HTMLTagData(PageRenderLocation location, HTMLTagType type, HtmlString block) : this(location, type, null, block) { }
+    }
 
     public record GlobalTags(string? HeadHTML, string? AfterBodyStartHTML, string? BeforeBodyEndHTML);
 

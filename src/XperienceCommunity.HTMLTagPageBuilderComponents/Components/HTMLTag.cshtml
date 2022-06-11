@@ -1,4 +1,6 @@
-﻿@model XperienceCommunity.HTMLTagPageBuilderComponents.HTMLTagData
+﻿@using XperienceCommunity.HTMLTagPageBuilderComponents
+
+@model XperienceCommunity.HTMLTagPageBuilderComponents.HTMLTagData
 
 @{
     var task = (Model.Type, Model.Block, Model.FilePath) switch
@@ -26,7 +28,7 @@
 
     async Task RenderStylesheetLink(string filePath)
     {
-        <link rel="stylesheet" href="@filePath" asp-append-version="true" xp-url="true" />
+        <link rel="stylesheet" href="@filePath" asp-append-version="true" />
     }
 
     Task RenderESModuleBlock(HtmlString block)
@@ -40,7 +42,7 @@
 
     async Task RenderESModuleScriptTag(string filePath)
     {
-        <script type="module" src="@filePath" asp-append-version="true" xp-url="true"></script>
+        <script type="module" src="@filePath" asp-append-version="true"></script>
     }
 
     Task RenderJavaScriptBlock(HtmlString block)
@@ -54,7 +56,7 @@
 
     async Task RenderJavaScriptTag(string filePath)
     {
-        <script src="@filePath" asp-append-version="true" xp-url="true"></script>
+        <script src="@filePath" asp-append-version="true"></script>
     }
 
     Task RenderHTMLBlock(HtmlString block)

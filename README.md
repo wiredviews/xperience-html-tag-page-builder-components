@@ -61,7 +61,75 @@ This package is compatible with ASP.NET Core 6.0+ applications or libraries inte
 	services.AddHTMLTagPageBuilderComponents<MyHTMLTagsRetreiver>();
 	```
 
+4. Add the HTML Tag View Components to the main areas of your Layout:
+
+	```html
+	<!DOCTYPE html>
+	<html lang="en">
+	<head id="head">
+		<vc:page-html-tag-resource-hints />
+
+		<vc:page-html-tags render-location="HeadStart" />
+
+		<!-- ... -->
+	
+		<vc:page-html-tags render-location="HeadEnd" />	
+	</head>
+
+	<body>
+		<vc:page-html-tags render-location="AfterBodyStart" />	
+
+		<!-- ... ->
+
+		@RenderBody()
+
+		<!-- ... ->
+
+		<vc:page-html-tags render-location="BeforeBodyEnd" />
+	</body>
+	</html>
+	```
+
 ## Usage Examples
+
+### Above-the-fold Image Preload
+
+If you have an image added to a page programmatically, or through a Widget, you can use the `IHTMLTagDataStore` to store an Image file path which will have a resource hint added to the `<head>`:
+
+```csharp
+void AddImageLinkPreload(IHTMLTagDataStore store, string imagePath)
+{
+	string tag = new HTMLTagData(
+		PageRenderLocation.None,
+		HTMLTagType.ImageFile,
+		imagePath);
+
+	store.StoreTagData(tag);
+}
+```
+
+In the `<head>` where you add `<vc:page-html-tag-resource-hints />`, the following will be rendered:
+
+```
+<link rel="preload" as="image" href="/path/to/your/image.jpg" />
+```
+
+When using a Widget, you could provide a Widget Property that toggles whether or not this image has a preload hint.
+
+### Global HTML Tags
+
+With a single Page in the content tree that stores global HTML tags (ex: Marketing Tags, Analytics scripts) you can
+map the fields of that content to various locations on the page automatically with the `<vc:page-html-tags />` View Component.
+
+If your Page Type has a "Before Body End" field, that would be rendered at the bottom of the Layout using the following:
+
+```html
+<vc:page-html-tags render-location="BeforeBodyEnd" />
+```
+
+### Advanced HTML Tag Widget
+
+TODO
 
 ## Contributions
 

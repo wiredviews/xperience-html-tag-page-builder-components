@@ -50,14 +50,14 @@ public class AdvancedHTMLTagWidget : ViewComponent
                 "Head" => (PageRenderLocation.HeadEnd, "at the end of the <head>"),
                 "AfterBodyStart" => (PageRenderLocation.AfterBodyStart, "after the <body> start"),
                 "BeforeBodyEnd" => (PageRenderLocation.BeforeBodyEnd, "before the </body> end"),
-                _ => (PageRenderLocation.Unknown, "[unknown]")
+                _ => (PageRenderLocation.None, "[unknown]")
             };
 
             var (block, path, type) = advancedTag switch
             {
                 AdvancedHTMLTagFile fileResp => (null, fileResp.FilePath, fileResp.Type),
                 AdvancedHTMLTagBlock blockResp => (blockResp.TagHTML, null, blockResp.Type),
-                _ => ((string?)null, (string?)null, HTMLTagType.Unknown)
+                _ => ((string?)null, (string?)null, HTMLTagType.None)
             };
 
             var tagData = new HTMLTagData(

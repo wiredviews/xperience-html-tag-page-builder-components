@@ -25,7 +25,7 @@ public class PageHTMLTagsViewComponent : ViewComponent
             PageRenderLocation.BeforeBodyEnd => globalTags.BeforeBodyEndHTML,
             PageRenderLocation.HeadStart => null,
             PageRenderLocation.Current => null,
-            PageRenderLocation.Unknown => null,
+            PageRenderLocation.None => null,
             _ => null
         };
 
@@ -33,7 +33,7 @@ public class PageHTMLTagsViewComponent : ViewComponent
 
         if (content is not null)
         {
-            tagData.Add(new HTMLTagData(renderLocation, HTMLTagType.HTMLBlock, null, new HtmlString(content)));
+            tagData.Add(new HTMLTagData(renderLocation, HTMLTagType.HTMLBlock, new HtmlString(content)));
         }
 
         return View("~/Components/PageHTMLTags.cshtml", new PageHTMLTagsViewModel(tagData));
